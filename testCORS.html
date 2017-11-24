@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>TESTCORS</title>
+</head>
+<body>
+	<h1>CORS</h1>
+	<p>Por default, los navegadores previenen la conexión para compartir recursos de un servidor a otro, es decir, que si desde una aplicación X se trata de acceder a un servidor Y, la respuesta por default es que se prohibe este tipo de conexión. Lo anterior es por razones de seguridad, ya que si no existiera esto, desde cualquier servidor X podriamos hacer peticiones a bases de datos del servidor Y. Aún con lo anterior, algunas veces es necesario compartir recursos de un servidor a otro sin malas intenciones.</p>
+	<p>Debido a ésto es que existe un protocolo o técnica de seguridad llamada CORS (Cross Origin Resource Sharing) que permite compartir recursos de un servidor a otro. La forma mas rápida de hacerlo es a través de la manipulación del archivo ".htaccess" que indica los elementos que tienen acceso o no a compartir recursos. La sentencia "Header add Access-Control-Allow-Origin "*"" colocará un header a todas las peticiones en la que se permitirá el acceso al contenido, tambien en lugar de el comodín "*" podemos colocar las rutas especificas de los servidores que tendrán acceso.</p>
+	<div id="cargar"></div>
+	<button onclick="cargarCORS()">CARGAR</button>
+</body>
+<script>
+	function cargarCORS(){
+		//1. INSTANCIA DE XHR
+		ax = new XMLHttpRequest();
+		//2. CADENA DE PETICIÓN
+		ax.open('GET','http://148.220.209.137:9999/apps2017/sesion3/test.txt');
+		//3. ENVIAR LA PETICIÓN
+		ax.send();
+		//4. ESCUCHAR CUANDO HAYA UNA RESPUESTA
+		ax.onreadystatechange = function(){
+			if (ax.status == 200 && ax.readyState==4) {
+				document.getElementById('cargar').innerHTML=ax.responseText;
+			}
+		}
+	}
+</script>
+</html>
